@@ -10,24 +10,16 @@
   <body>
     <h1>TEST TEST TEST TEST TEST TEST TEST TEST TEST</h1>
 
-    <div class="country-selection-container">
-      <!-- <form action="results.html" method="GET"> -->
-      <div class="country-wrapper">
-        <label for="countries" class="label">Country</label>
-        <select name="countries" id="countries"></select>
-      </div>
-      <div class="province-state-wrapper">
-        <label for="province-state" class="label">Province/State</label>
-        <select name="province-state" id="province-state"></select>
-      </div>
-      <input class="submit-Btn" type="submit" />
-      <!-- </form> -->
+    <div class="chartMenu">
+      <p>WWW.CHARTJS3.COM (Chart JS 3.7.1)</p>
     </div>
-
-    <div class="canvas-chart">
-      <canvas id="myChart" width="400" height="200"></canvas>
+    <div class="chartCard">
+      <div class="chartBox">
+        <canvas id="myChart"></canvas>
+      </div>
     </div>
   </body>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://unpkg.com/chartjs-chart-geo@3.5.2/build/index.umd.min.js"></script>
   <script src="script.js"></script>
 </html>

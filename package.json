@@ -1,5 +1,7 @@
 {
   "dependencies": {
-    "chart.js": "^3.7.1"
+    "chart.js": "^3.7.1",
+    "chartjs-chart-geo": "^3.7.1",
+    "topojson": "^3.0.2"
   }
 }
