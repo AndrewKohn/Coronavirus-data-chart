@@ -8,9 +8,12 @@
   </head>
   <body>
     <a href="/">return</a>
+    <h2 class="result1"></h2>
+    <h2 class="result2"></h2>
     <script>
       new URLSearchParams(window.location.search).forEach((value, name) => {
-        console.log(`${name}: ${value}`);
+        document.querySelector(`.result1`).innerHTML = `${name}: ${value}`;
+        document.querySelector(`.result2`).innerHTML = `${name}: ${value}`;
       });
     </script>
   </body>
