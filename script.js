@@ -3,12 +3,13 @@ const baseURL = `https://coronavirus.m.pipedream.net/`;
 
 var covidUSData = [];
 var statesSet = new Set();
-var statesConfirmedCases;
+var statesConfirmedCases = [];
 
 // Collect only US data
 const getUSData = data => {
   for (let i = 0; i < data.rawData.length; i++) {
     if (data.rawData[i].Country_Region === 'US') {
+      // Removes US Territories and miscellaneous domains
       if (
         data.rawData[i].Province_State != 'American Samoa' &&
         data.rawData[i].Province_State != 'Diamond Princess' &&
@@ -26,19 +27,24 @@ const getUSData = data => {
     }
   }
   console.log(covidUSData);
-  getSumOfConfirmedCases(statesSet);
-};
+  console.log(statesSet);
 
-const getSumOfConfirmedCases = () => {
-  let sum = 0;
-  let currentUSState = statesSet[0];
-  for (let i = 0; i < covidUSData.length; i++) {
-    for (let j = 0; j < statesSet.size; j++) {
-      if (currentUSState === statesSet[j]) {
-        console.log(currentUSState, statesSet[j]);
+  const getSumOfConfirmedCases = () => {
+    statesSet.forEach(state => {
+      let sum = 0;
+      for (let i = 0; i < covidUSData.length; i++) {
+        if (covidUSData[i].Province_State === state) {
+          sum += Number(covidUSData[i].Confirmed);
+        }
       }
-    }
-  }
+      statesConfirmedCases.push({ state: state, value: sum });
+    });
+    // console.log(state);
+    console.log(statesConfirmedCases);
+    console.log(statesConfirmedCases.length);
+  };
+
+  getSumOfConfirmedCases();
 };
 
 // US MAP
@@ -49,6 +55,17 @@ const createUSMap = () => {
       const nation = ChartGeo.topojson.feature(us, us.objects.nation)
         .features[0];
       const states = ChartGeo.topojson.feature(us, us.objects.states).features;
+
+      statesConfirmedCases.forEach(state => {
+        for (let i = 0; i < states.length; i++) {
+          if (states[i].properties.name === state.state) {
+            states[i].value = state.value;
+            console.log(state, state.value);
+          }
+        }
+      });
+
+      console.log(states);
 
       const chart = new Chart(
         document.getElementById('canvas').getContext('2d'),
@@ -62,7 +79,7 @@ const createUSMap = () => {
                 outline: nation,
                 data: states.map(d => ({
                   feature: d,
-                  value: Math.random() * 10,
+                  value: d.value,
                 })),
               },
             ],
@@ -73,12 +90,13 @@ const createUSMap = () => {
                 display: false,
               },
             },
+
             scales: {
               xy: {
                 projection: 'albersUsa',
               },
               color: {
-                quantize: 5,
+                quantize: 100,
                 legend: {
                   position: 'bottom-right',
                   align: 'bottom',
