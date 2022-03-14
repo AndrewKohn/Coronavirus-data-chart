@@ -31,13 +31,19 @@ const getUSData = data => {
 
   const getSumOfConfirmedCases = () => {
     statesSet.forEach(state => {
-      let sum = 0;
+      let sumC = 0;
+      let sumD = 0;
       for (let i = 0; i < covidUSData.length; i++) {
         if (covidUSData[i].Province_State === state) {
-          sum += Number(covidUSData[i].Confirmed);
+          sumC += Number(covidUSData[i].Confirmed);
+          sumD += Number(covidUSData[i].Deaths);
         }
       }
-      statesConfirmedCases.push({ state: state, value: sum });
+      statesConfirmedCases.push({
+        state: state,
+        confirmed: sumC,
+        deaths: sumD,
+      });
     });
     // console.log(state);
     console.log(statesConfirmedCases);
@@ -59,8 +65,9 @@ const createUSMap = () => {
       statesConfirmedCases.forEach(state => {
         for (let i = 0; i < states.length; i++) {
           if (states[i].properties.name === state.state) {
-            states[i].value = state.value;
-            console.log(state, state.value);
+            states[i].confirmed = state.confirmed;
+            states[i].deaths = state.deaths;
+            console.log(state, state.confirmed);
           }
         }
       });
@@ -79,7 +86,7 @@ const createUSMap = () => {
                 outline: nation,
                 data: states.map(d => ({
                   feature: d,
-                  value: d.value,
+                  value: d.confirmed,
                 })),
               },
             ],
@@ -119,7 +126,7 @@ const createUSMap = () => {
                 outline: nation,
                 data: states.map(d => ({
                   feature: d,
-                  value: d.value,
+                  value: d.deaths,
                 })),
               },
             ],
