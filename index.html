@@ -8,15 +8,44 @@
     <title>Coronavirus Data Chart</title>
   </head>
   <body>
-    <h1>TEST TEST TEST TEST TEST TEST TEST TEST TEST</h1>
-    <button class="btn">HIDE UI</button>
+    <main class="container">
+      <section class="loading-status-section"></section>
 
-    <div class="chartCard">
-      <div class="chartBox">
-        <canvas id="confirmed-cases-chart"></canvas>
-        <canvas id="death-cases-chart" class="hidden"></canvas>
-      </div>
-    </div>
+      <section class="grid">
+        <!-- List of states/counties -->
+        <div class="list-wrapper">
+          <div class="list-headers">
+            <p class="list-heading">LOCATION</p>
+            <p class="list-heading">FIPS</p>
+            <p class="list-heading">CONFIRMED</p>
+            <p class="list-heading">DEATHS</p>
+            <p class="list-heading">FATALITY RATIO</p>
+          </div>
+          <ol class="covid-state-list">
+            <li class="list-text">
+              <p class="list-data--location">LOCATIdsafsdfaON</p>
+              <div class="data-wrapper">
+                <p class="list-data--fips">FIPS</p>
+                <p class="list-data--confirmed">CONFIRMED</p>
+                <p class="list-data--deaths">DEATHS</p>
+                <p class="list-data--ratio">FATALITY RATIO</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <!-- Covid Data Map -->
+        <div class="chart-wrapper">
+          <div class="chart-box">
+            <canvas id="confirmed-cases-chart"></canvas>
+            <canvas id="death-cases-chart" class="hidden"></canvas>
+          </div>
+        </div>
+
+        <!-- Location map with covid data markers (mainly for county selection) -->
+        <div class="map-wrapper"></div>
+      </section>
+    </main>
   </body>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://unpkg.com/chartjs-chart-geo@3.5.2/build/index.umd.min.js"></script>
