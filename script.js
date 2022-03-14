@@ -67,8 +67,8 @@ const createUSMap = () => {
 
       console.log(states);
 
-      const chart = new Chart(
-        document.getElementById('canvas').getContext('2d'),
+      const confirmedCasesChart = new Chart(
+        document.getElementById('confirmed-cases-chart').getContext('2d'),
         {
           type: 'choropleth',
           data: {
@@ -98,8 +98,48 @@ const createUSMap = () => {
               color: {
                 quantize: 100,
                 legend: {
-                  position: 'bottom-right',
-                  align: 'bottom',
+                  position: 'top-left',
+                  // align: 'bottom',
+                },
+              },
+            },
+          },
+        }
+      );
+
+      const deathCasesChart = new Chart(
+        document.getElementById('death-cases-chart').getContext('2d'),
+        {
+          type: 'choropleth',
+          data: {
+            labels: states.map(d => d.properties.name),
+            datasets: [
+              {
+                label: 'States',
+                outline: nation,
+                data: states.map(d => ({
+                  feature: d,
+                  value: d.value,
+                })),
+              },
+            ],
+          },
+          options: {
+            plugins: {
+              legend: {
+                display: false,
+              },
+            },
+
+            scales: {
+              xy: {
+                projection: 'albersUsa',
+              },
+              color: {
+                quantize: 100,
+                legend: {
+                  position: 'top-left',
+                  // align: 'bottom',
                 },
               },
             },

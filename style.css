@@ -20,3 +20,7 @@
   border: solid 3px rgba(255, 26, 104, 1);
   background: white;
 }
+
+.hidden {
+  display: none !important;
+}
